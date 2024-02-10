@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".actividades.AvatarActivity" />
-        <activity android:name=".actividades.IniciarJuegoActivity"/>
+        <activity android:name=".actividades.PantallaPrincipalJuegoActivity"/>
         <activity android:name=".actividades.InicioActivity"/>
         <activity android:name=".actividades.LoginActivity"/>
 
