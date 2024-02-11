@@ -47,6 +47,8 @@ public class AdaptadorJugador extends RecyclerView.Adapter<AdaptadorJugador.List
     public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView ivContrincante;
+        private ImageView ivDineroContrincante;
+        private ImageView ivNombreContrincante;
         private TextView tvNombreContrincante;
         private TextView tvDineroContrincante;
         private final Context context;
@@ -56,6 +58,8 @@ public class AdaptadorJugador extends RecyclerView.Adapter<AdaptadorJugador.List
             this.context = itemview.getContext();
             ivContrincante = itemview.findViewById(R.id.ivImagenContrincante);
             tvNombreContrincante = itemview.findViewById(R.id.tvNombreContrincante);
+            ivNombreContrincante = itemview.findViewById(R.id.ivNombreContrincante);
+            ivDineroContrincante = itemview.findViewById(R.id.ivDineroContrincante);
             tvDineroContrincante = itemview.findViewById(R.id.tvDineroContrincante);
 
             itemview.setOnClickListener(this);
@@ -67,6 +71,8 @@ public class AdaptadorJugador extends RecyclerView.Adapter<AdaptadorJugador.List
             ivContrincante.setImageResource(resourceId);
             ivContrincante.getLayoutParams().width = 400;
             ivContrincante.getLayoutParams().height = 400;
+            ivNombreContrincante.setImageResource(R.drawable.icon_nombre_jugador);
+            ivDineroContrincante.setImageResource(R.drawable.icon_dinero);
             tvNombreContrincante.setText(jugador.getNombreJugador());
             tvDineroContrincante.setText(String.valueOf(jugador.getDineroJugador()));
         }

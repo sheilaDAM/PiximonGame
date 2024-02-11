@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Jugador implements Parcelable {
-
-    private int idJugador;
     private String nombreJugador;
     private String iconoJugador;
     private double dineroJugador;
@@ -18,9 +16,7 @@ public class Jugador implements Parcelable {
         this.dineroJugador = dineroJugador;
     }
 
-    public int getIdJugador() {
-        return idJugador;
-    }
+
 
     public String getNombreJugador() {
         return nombreJugador;
@@ -36,7 +32,6 @@ public class Jugador implements Parcelable {
 
     // ------- CÓDIGO AÑADIDO PARA IMPLEMENTAR LA INTERFAZ PARCELABLE -------
     protected Jugador(Parcel in) {
-        idJugador = in.readInt();
         nombreJugador = in.readString();
         iconoJugador = in.readString();
         dineroJugador = in.readDouble();
@@ -61,8 +56,6 @@ public class Jugador implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-
-        dest.writeInt(idJugador);
         dest.writeString(nombreJugador);
         dest.writeString(iconoJugador);
         dest.writeDouble(dineroJugador);
