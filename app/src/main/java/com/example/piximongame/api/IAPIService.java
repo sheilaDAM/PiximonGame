@@ -16,12 +16,13 @@ import java.util.List;
 //Esta interfaz define los métodos que se utilizarán para hacer las peticiones a la API
 public interface IAPIService {
 
-    @POST("/identificarlogin")
+    @POST("" +
+            "identificarlogin")
     Call<Jugador> identificarLogin(@Body Jugador jugador);
 
     //Guardamos el usuario creado en la base de datos
-    @POST("/guardarusuario")
-    Call<Usuario> guardarUsuario(@Body Usuario usuario);
+    @POST("/usuarios/guardar")
+    Call<Boolean> guardarUsuario(@Body Usuario usuario);
 
     //Guardamos los 4 jugadores aleatorios
     @POST("/guardarjugadores")
@@ -30,5 +31,8 @@ public interface IAPIService {
     //Guardamos la ruta de los avatares
     @POST("/guardaravatares")
     Call<List<String>> guardarAvatares(@Body List<String> avatares);
+
+    @GET("/jugadores/getJugadores")
+    Call<List<Jugador>> getJugadores();
 
 }

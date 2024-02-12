@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piximongame.R;
 import com.example.piximongame.entidades.Avatar;
+import com.example.piximongame.entidades.Usuario;
 import com.example.piximongame.entidades.adaptadores.AdaptadorAvatar;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class AvatarActivity extends AppCompatActivity {
     private RecyclerView recViewAvatar;
     private AdaptadorAvatar adaptadorAvatar;
     private List<Avatar> listaAvatares;
-    private String nombreJugador;
+    private Usuario usuarioLogeado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class AvatarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_avatar);
 
         //obtenemos el nombre del jugador del intent
-         nombreJugador = getIntent().getStringExtra("nombreJugador");
+         usuarioLogeado = getIntent().getParcelableExtra("usuarioLogeado");
 
          listaAvatares = new ArrayList<>();
 
@@ -39,8 +40,9 @@ public class AvatarActivity extends AppCompatActivity {
             listaAvatares.add(new Avatar(rutaImagen));
          }
 
+
         recViewAvatar = findViewById(R.id.recViewAvatar);
-        adaptadorAvatar = new AdaptadorAvatar(listaAvatares, nombreJugador);
+        adaptadorAvatar = new AdaptadorAvatar(listaAvatares, usuarioLogeado);
         recViewAvatar.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
         recViewAvatar.setAdapter(adaptadorAvatar);
     }

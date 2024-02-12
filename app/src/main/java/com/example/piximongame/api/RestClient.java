@@ -13,7 +13,8 @@ para poder crear las cartas de los jugadores.
 public class RestClient {
 
     private static IAPIService apiInstance;
-    private static final String BASE_URL = "https://localhost:8082";
+    private static final String BASE_URL = "http://192.168.50.135:8081";
+    //private static final String BASE_URL = "https://localhost:8082";
 
     private RestClient() {
     }

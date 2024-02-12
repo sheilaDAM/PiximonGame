@@ -30,10 +30,11 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
     private List<Usuario> listaUsuarios;
     private Avatar avatarSeleccionado;
     private String nombreUsuario;
+    private Usuario usuarioLogeado;
 
-    public AdaptadorAvatar(List<Avatar> listaAvatares, String nombreJugador) {
+    public AdaptadorAvatar(List<Avatar> listaAvatares, Usuario usuarioLogeado) {
         this.listaAvatares = listaAvatares;
-        this.nombreUsuario = nombreJugador;
+        this.usuarioLogeado = usuarioLogeado;
 
     }
 
@@ -68,6 +69,7 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
 
             itemview.setOnClickListener(this);
 
+
         }
 
         public void bindCategory(Avatar avatar) {
@@ -92,8 +94,9 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
             List<String> nombresDisponibles = new ArrayList<>(Arrays.asList(nombresContrincantes));
             List<Jugador> listaJugadores = new ArrayList<>();
             // Primero guardamos el jugador principal (usuario que juega)
-            Usuario usuario = new Usuario(nombreUsuario, avatarSeleccionado.getImagenAvatar(), 1000);
-            listaUsuarios.add(usuario);
+            Jugador jugador = new Jugador(usuarioLogeado.getNombreUsuario(), avatarSeleccionado.getImagenAvatar(), 150000);
+
+            //listaJugadores.add(jugador);
 
             // Crearmos 4 jugadores aleatoriamente
             for (int i = 0; i < 4; i++) {
@@ -118,7 +121,7 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
 
 
             Intent intent = new Intent(context, PantallaPrincipalJuegoActivity.class);
-            intent.putExtra("nombreJugador", nombreUsuario);
+            intent.putExtra("usuarioLogeado", usuarioLogeado);
             intent.putExtra("imagenAvatar", avatarSeleccionado.getImagenAvatar());
             //ahora vamos a pasar el listado de jugadores
             intent.putParcelableArrayListExtra("jugadoresAleatorios", (ArrayList<? extends Parcelable>) listaJugadores);

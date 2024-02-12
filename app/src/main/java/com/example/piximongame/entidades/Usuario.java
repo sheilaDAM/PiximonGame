@@ -5,34 +5,29 @@ import android.os.Parcelable;
 
 public class Usuario implements Parcelable {
 
-    private String nombre;
-    private String icono;
-    private double dinero;
+    private String nombreUsuario;
+    private String password;
 
-    public Usuario(String nombre, String icono, double dinero) {
-        this.nombre = nombre;
-        this.icono = icono;
-        this.dinero = dinero;
+
+    public Usuario(String nombreUsuario, String password) {
+        this.nombreUsuario = nombreUsuario;
+        this.password = password;
+
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public String getIcono() {
-        return icono;
-    }
-
-    public double getDinero() {
-        return dinero;
+    public String getPassword() {
+        return password;
     }
 
     // ------- CÓDIGO AÑADIDO PARA IMPLEMENTAR LA INTERFAZ PARCELABLE -------
 
     protected Usuario(Parcel in) {
-        nombre = in.readString();
-        icono = in.readString();
-        dinero = in.readDouble();
+        nombreUsuario = in.readString();
+        password = in.readString();
     }
 
     @Override
@@ -54,8 +49,7 @@ public class Usuario implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nombre);
-        dest.writeString(icono);
-        dest.writeDouble(dinero);
+        dest.writeString(nombreUsuario);
+        dest.writeString(password);
     }
 }
