@@ -1,4 +1,4 @@
 package com.example.piximongame.entidades.adaptadores;
 
-public class AdaptadorDigimon {
+public class AdaptadorCarta {
 }
