@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvNivelCarta" />
 
     <ImageView
-        android:id="@+id/ivVida"
+        android:id="@+id/ivVidaCarta"
         android:layout_width="35dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -73,11 +73,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvVidaCarta"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivNivel"
+        app:layout_constraintTop_toBottomOf="@+id/ivNivelCarta"
         tools:srcCompat="@drawable/icono_vida" />
 
     <ImageView
-        android:id="@+id/ivNivel"
+        android:id="@+id/ivNivelCarta"
         android:layout_width="35dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -85,11 +85,11 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@+id/tvNivelCarta"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivValor"
+        app:layout_constraintTop_toBottomOf="@+id/ivValorCarta"
         tools:srcCompat="@drawable/icono_nivel" />
 
     <ImageView
-        android:id="@+id/ivValor"
+        android:id="@+id/ivValorCarta"
         android:layout_width="35dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -98,11 +98,11 @@
         app:layout_constraintEnd_toStartOf="@+id/tvValorCarta"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/ivNombreCarta"
         tools:srcCompat="@drawable/icon_dinero" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/ivNombreCarta"
         android:layout_width="35dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"

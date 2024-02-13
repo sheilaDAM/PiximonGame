@@ -25,7 +25,7 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio);
+        setContentView(R.layout.activity_pantalla_principal_juego);
 
         nombreJugador1 = getIntent().getStringExtra("nombreJugador");
         imagenAvatar1 = getIntent().getStringExtra("imagenAvatar");

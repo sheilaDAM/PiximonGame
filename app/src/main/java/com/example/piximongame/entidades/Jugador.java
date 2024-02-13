@@ -5,10 +5,13 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
+
 public class Jugador implements Parcelable {
     private String nombreJugador;
     private String iconoJugador;
     private double dineroJugador;
+    private List<Carta> listaCartas;
 
     public Jugador(String nombreJugador, String iconoJugador, double dineroJugador) {
         this.nombreJugador = nombreJugador;
@@ -28,6 +31,10 @@ public class Jugador implements Parcelable {
 
     public double getDineroJugador() {
         return dineroJugador;
+    }
+
+    public List<Carta> getListaCartas() {
+        return listaCartas;
     }
 
     // ------- CÓDIGO AÑADIDO PARA IMPLEMENTAR LA INTERFAZ PARCELABLE -------

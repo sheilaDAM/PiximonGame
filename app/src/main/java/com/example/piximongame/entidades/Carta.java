@@ -9,16 +9,16 @@ public class Carta implements Parcelable {
 
     private String name;
     private String img;
-    private double valorDigimon;
-    private int nivelDigimon;
-    private int vidaDigimon;
+    private double valorCarta;
+    private int nivelCarta;
+    private int vidaCarta;
 
-    public Carta(String name, String img, double valorDigimon, int nivelDigimon, int vidaDigimon) {
+    public Carta(String name, String img, double valorCarta, int nivelCarta, int vidaCarta) {
         this.name = name;
         this.img = img;
-        this.valorDigimon = valorDigimon;
-        this.nivelDigimon = nivelDigimon;
-        this.vidaDigimon = vidaDigimon;
+        this.valorCarta = valorCarta;
+        this.nivelCarta = nivelCarta;
+        this.vidaCarta = vidaCarta;
     }
 
     public String getName() {
@@ -29,16 +29,16 @@ public class Carta implements Parcelable {
         return img;
     }
 
-    public double getValorDigimon() {
-        return valorDigimon;
+    public double getValorCarta() {
+        return valorCarta;
     }
 
-    public int getNivelDigimon() {
-        return nivelDigimon;
+    public int getNivelCarta() {
+        return nivelCarta;
     }
 
-    public int getVidaDigimon() {
-        return vidaDigimon;
+    public int getVidaCarta() {
+        return vidaCarta;
     }
 
     // ------- CÓDIGO AÑADIDO PARA IMPLEMENTAR LA INTERFAZ PARCELABLE -------
@@ -52,17 +52,17 @@ public class Carta implements Parcelable {
 
         dest.writeString(name);
         dest.writeString(img);
-        dest.writeDouble(valorDigimon);
-        dest.writeInt(nivelDigimon);
-        dest.writeInt(vidaDigimon);
+        dest.writeDouble(valorCarta);
+        dest.writeInt(nivelCarta);
+        dest.writeInt(vidaCarta);
     }
 
     protected Carta(Parcel in) {
         name = in.readString();
         img = in.readString();
-        valorDigimon = in.readDouble();
-        nivelDigimon = in.readInt();
-        vidaDigimon = in.readInt();
+        valorCarta = in.readDouble();
+        nivelCarta = in.readInt();
+        vidaCarta = in.readInt();
     }
 
     public static final Creator<Carta> CREATOR = new Creator<Carta>() {
