@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piximongame.R;
 import com.example.piximongame.entidades.Jugador;
+import com.example.piximongame.entidades.Usuario;
 import com.example.piximongame.entidades.adaptadores.AdaptadorJugador;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
     private List<Jugador> jugadoresAleatorios;
     private RecyclerView recViewContrincantes;
     private AdaptadorJugador adaptadorJugador;
+    private Usuario usuarioLogeado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +31,15 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
 
         nombreJugador1 = getIntent().getStringExtra("nombreJugador");
         imagenAvatar1 = getIntent().getStringExtra("imagenAvatar");
+        usuarioLogeado = getIntent().getParcelableExtra("usuarioLogeado");
         jugadoresAleatorios = getIntent().getParcelableArrayListExtra("jugadoresAleatorios");
 
         // Actualizamos la interfaz de usuario con los datos recibidos
-        actualizarInterfaz(nombreJugador1, imagenAvatar1);
+        actualizarInterfaz(usuarioLogeado);
         cargarRecyclerContrincantes(jugadoresAleatorios);
     }
 
-    private void actualizarInterfaz(String nombreJugador1, String imagenAvatar1) {
+    private void actualizarInterfaz(Usuario usuarioLogeado) {
         ImageView ivImagenJugador1 = findViewById(R.id.ivImagenJugador1);
         TextView tvNombreJugador1 = findViewById(R.id.tvNombreJugador1);
         TextView tvDineroJugador1 = findViewById(R.id.tvDineroJugador1);
@@ -45,7 +48,7 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
 
         int resourceId = getResources().getIdentifier(imagenAvatar1, "drawable", getPackageName());
         ivImagenJugador1.setImageResource(resourceId);
-        tvNombreJugador1.setText(nombreJugador1);
+        tvNombreJugador1.setText(usuarioLogeado.getNombreUsuario());
         tvDineroJugador1.setText(String.valueOf(1000));
         ivNombreJugador1.setImageResource(R.drawable.icon_nombre_jugador);
         ivDineroJugador1.setImageResource(R.drawable.icon_dinero);

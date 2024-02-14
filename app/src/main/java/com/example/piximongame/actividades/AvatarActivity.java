@@ -28,9 +28,8 @@ public class AvatarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avatar);
-
-        //obtenemos el nombre del jugador del intent
-         usuarioLogeado = getIntent().getParcelableExtra("usuarioLogeado");
+        Log.d("AVATAR", "ENTRÓ)");
+        usuarioLogeado = getIntent().getParcelableExtra("usuarioLogeado");
 
          listaAvatares = new ArrayList<>();
 

@@ -11,9 +11,9 @@ public class Carta implements Parcelable {
     private String img;
     private double valorCarta;
     private int nivelCarta;
-    private int vidaCarta;
+    private String vidaCarta;
 
-    public Carta(String name, String img, double valorCarta, int nivelCarta, int vidaCarta) {
+    public Carta(String name, String img, double valorCarta, int nivelCarta, String vidaCarta) {
         this.name = name;
         this.img = img;
         this.valorCarta = valorCarta;
@@ -37,7 +37,7 @@ public class Carta implements Parcelable {
         return nivelCarta;
     }
 
-    public int getVidaCarta() {
+    public String getVidaCarta() {
         return vidaCarta;
     }
 
@@ -54,7 +54,7 @@ public class Carta implements Parcelable {
         dest.writeString(img);
         dest.writeDouble(valorCarta);
         dest.writeInt(nivelCarta);
-        dest.writeInt(vidaCarta);
+        dest.writeString(vidaCarta);
     }
 
     protected Carta(Parcel in) {
@@ -62,7 +62,7 @@ public class Carta implements Parcelable {
         img = in.readString();
         valorCarta = in.readDouble();
         nivelCarta = in.readInt();
-        vidaCarta = in.readInt();
+        vidaCarta = in.readString();
     }
 
     public static final Creator<Carta> CREATOR = new Creator<Carta>() {
