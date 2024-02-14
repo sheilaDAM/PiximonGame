@@ -17,18 +17,18 @@ public class RestClient {
 
     private static IAPIService apiInstance;
     //private static final String BASE_URL = "http://192.168.50.135:8081";
-    //private static final String BASE_URL = "http://192.168.50.165:8082"; //la ip del ordenador en clase con la api
-    private static final String BASE_URL = "http://192.168.18.36:8082";
+     private static final String BASE_URL = "http://192.168.50.165:8082"; //la ip del ordenador en clase con la api
+    //private static final String BASE_URL = "http://192.168.18.36:8082"; //ip ordenador casa
 
     private RestClient() {
     }
 
     public synchronized static IAPIService getApiServiceInstance() {
         if (apiInstance == null) {
-            Gson gson = new GsonBuilder().setLenient().create();
+            //Gson gson = new GsonBuilder().setLenient().create(); //habría que pasarle el gson a GsonConverterFactory.create(gson)
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
             apiInstance = retrofit.create(IAPIService.class);
         }

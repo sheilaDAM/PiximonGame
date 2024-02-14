@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 
 import com.example.piximongame.entidades.Jugador;
 import com.example.piximongame.entidades.Usuario;
+import com.example.piximongame.util.ResponseStatus;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ public interface IAPIService {
     //Call<Jugador> identificarLogin(@Body Jugador jugador);
 
     //Guardamos el usuario creado en la base de datos
-    @POST("/usuarios/guardar")
-    Call<Response<Void>> guardarUsuario(@Body Usuario usuario);
+    @POST("/usuarios/registrar")
+    Call<ResponseStatus> registrarUsuario(@Body Usuario usuario);
 
     //Guardamos los 4 jugadores aleatorios
     @POST("/guardarjugadores")
@@ -36,6 +37,6 @@ public interface IAPIService {
     Call<List<Jugador>> getJugadores();
 
     @POST("/usuarios/comprobarLogin")
-    Call<Response<Void>> comprobarLogin(@Body Usuario usuario);
+    Call<ResponseStatus> comprobarLogin(@Body Usuario usuario);
 
 }

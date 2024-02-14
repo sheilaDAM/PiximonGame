@@ -94,7 +94,7 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
             List<String> nombresDisponibles = new ArrayList<>(Arrays.asList(nombresContrincantes));
             List<Jugador> listaJugadores = new ArrayList<>();
             // Primero guardamos el jugador principal (usuario que juega)
-            Jugador jugador = new Jugador(usuarioLogeado.getNombreUsuario(), avatarSeleccionado.getImagenAvatar(), 150000);
+            Jugador jugador = new Jugador(usuarioLogeado.getNombre(), avatarSeleccionado.getImagenAvatar(), 150000);
 
             //listaJugadores.add(jugador);
 

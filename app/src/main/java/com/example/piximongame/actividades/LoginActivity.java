@@ -16,6 +16,7 @@ import com.example.piximongame.api.RestClient;
 import com.example.piximongame.entidades.Jugador;
 import com.example.piximongame.entidades.Usuario;
 import com.example.piximongame.util.HashGenerator;
+import com.example.piximongame.util.ResponseStatus;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -55,28 +56,35 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (NoSuchAlgorithmException e) {
                     throw new RuntimeException(e);
                 }
-                apiService.guardarUsuario(usuario).enqueue(new Callback<Response<Void>>() {
+                apiService.registrarUsuario(usuario).enqueue(new Callback<ResponseStatus>() {
                     @Override
-                    public void onResponse(Call<Response<Void>> call, Response<Response<Void>> response) {
-                        if (response.code() == 201) {
-                            Log.d("USUARIO GUARDADO", "Usuario guardado: " + response.body());
-                            Toast.makeText(LoginActivity.this, "Usuario registrado con éxito :).", Toast.LENGTH_SHORT).show();
-                        } else if (response.code() == 409) {
-                            // El usuario ya existe, maneja este caso
-                            Toast.makeText(LoginActivity.this, "El usuario ya existe en la bbdd.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.e("USUARIO NO GUARDADO", "Usuario no guardado");
+                    public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
+
+                        if (response.isSuccessful()) {
+                            ResponseStatus responseStatus = response.body();
+                            ResponseStatus.TipoCodigo tipoCodigo = responseStatus.getTipoCodigo();
+                            if (tipoCodigo.equals(ResponseStatus.TipoCodigo.REGISTRADO)) {
+                                Log.d("USUARIO GUARDADO", "Usuario guardado: " + response.body());
+                                Toast.makeText(LoginActivity.this, "Usuario registrado con éxito :).", Toast.LENGTH_SHORT).show();
+                            } else if (tipoCodigo.equals(ResponseStatus.TipoCodigo.YA_EXITE)) {
+                                // El usuario ya existe, maneja este caso
+                                Toast.makeText(LoginActivity.this, "El usuario ya existe en la bbdd.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.e("USUARIO NO GUARDADO", "Usuario no guardado");
+                                Toast.makeText(LoginActivity.this, "Error en la operación de registro.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
 
+
                     @Override
-                    public void onFailure(Call<Response<Void>> call, Throwable t) {
+                    public void onFailure(Call<ResponseStatus> call, Throwable t) {
                         Log.e("RETROFIT", "Error al guardar usuario: " + t.getMessage());
                     }
                 });
                 //List<Jugador> jugadoresObtenidos = apiService.getJugadores();
 
-               // Log.d("JUGADORES OBTENIDOS, ", "Jugadores obtenidos:, " + jugadoresObtenidos.size());
+                // Log.d("JUGADORES OBTENIDOS, ", "Jugadores obtenidos:, " + jugadoresObtenidos.size());
                 Log.d("NOMBRE REGISTRADO", "Nombre jugador: " + nombreUsuario);
             }
         });
@@ -97,31 +105,33 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 Usuario finalUsuario = usuario;
-                apiService.comprobarLogin(usuario).enqueue(new Callback<Response<Void>>() {
+                apiService.comprobarLogin(usuario).enqueue(new Callback<ResponseStatus>() {
                     @Override
-                    public void onResponse(Call<Response<Void>> call, Response<Response<Void>> response) {
-
-                            if (response.code() == 202) {
+                    public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
+                        if (response.isSuccessful()) {
+                            ResponseStatus responseStatus = response.body();
+                            ResponseStatus.TipoCodigo tipoCodigo = responseStatus.getTipoCodigo();
+                            if (tipoCodigo.equals(ResponseStatus.TipoCodigo.LOGIN_CORRECTO)) {
                                 // Credenciales válidas
-                                Log.d("USUARIO EXISTE", "Usuario existe");
                                 Toast.makeText(LoginActivity.this, "Usuario correcto.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, AvatarActivity.class);
                                 intent.putExtra("usuarioLogeado", finalUsuario);
                                 Log.d("USUARIO LOGEADO", "Usuario logeado: " + finalUsuario);
                                 startActivity(intent);
-                            } else if (response.code() == 401) {
+                            } else if (tipoCodigo.equals(ResponseStatus.TipoCodigo.LOGIN_INCORRECTO)) {
                                 // Credenciales inválidas
                                 Log.e("USUARIO NO EXISTE", "Credenciales inválidas");
                                 Toast.makeText(LoginActivity.this, "Datos incorrectos.", Toast.LENGTH_SHORT).show();
 
-                           } else {
-                            Log.e("RETROFIT", "Error al comprobar login: " + response.message());
-                            Toast.makeText(LoginActivity.this, "Error al insertar datos o comprobar login", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.e("RETROFIT", "Error al comprobar login: " + response.message());
+                                Toast.makeText(LoginActivity.this, "Error al insertar datos o comprobar login", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Response<Void>> call, Throwable t) {
+                    public void onFailure(Call<ResponseStatus> call, Throwable t) {
                         Log.e("RETROFIT", "Error al comprobar login: " + t.getMessage());
                     }
                 });

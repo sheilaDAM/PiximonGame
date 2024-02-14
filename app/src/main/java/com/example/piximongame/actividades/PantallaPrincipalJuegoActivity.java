@@ -48,7 +48,7 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
 
         int resourceId = getResources().getIdentifier(imagenAvatar1, "drawable", getPackageName());
         ivImagenJugador1.setImageResource(resourceId);
-        tvNombreJugador1.setText(usuarioLogeado.getNombreUsuario());
+        tvNombreJugador1.setText(usuarioLogeado.getNombre());
         tvDineroJugador1.setText(String.valueOf(1000));
         ivNombreJugador1.setImageResource(R.drawable.icon_nombre_jugador);
         ivDineroJugador1.setImageResource(R.drawable.icon_dinero);
