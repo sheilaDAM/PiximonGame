@@ -166,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
     /*
 
     private void obtenerJugadores(Usuario usuario) {

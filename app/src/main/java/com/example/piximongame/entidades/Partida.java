@@ -45,4 +45,16 @@ public class Partida implements Parcelable {
         dest.writeInt(id);
         dest.writeTypedList(jugadores);
     }
+
+    public static final Creator<Partida> CREATOR = new Creator<Partida>() {
+        @Override
+        public Partida createFromParcel(Parcel in) {
+            return new Partida(in);
+        }
+
+        @Override
+        public Partida[] newArray(int size) {
+            return new Partida[size];
+        }
+    };
 }
