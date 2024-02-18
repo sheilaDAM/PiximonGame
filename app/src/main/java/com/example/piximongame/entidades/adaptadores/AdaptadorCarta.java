@@ -79,7 +79,7 @@ public class AdaptadorCarta extends RecyclerView.Adapter<AdaptadorCarta.ListView
         }
 
         public void bindCategory(Carta carta) {
-            int resourceId = context.getResources().getIdentifier(carta.getImg(), "drawable", context.getPackageName());
+            int resourceId = context.getResources().getIdentifier(carta.getImgCarta(), "drawable", context.getPackageName());
             ivCarta.setImageResource(resourceId);
             ivCarta.getLayoutParams().width = 400;
             ivCarta.getLayoutParams().height = 400;
@@ -87,7 +87,7 @@ public class AdaptadorCarta extends RecyclerView.Adapter<AdaptadorCarta.ListView
             ivValorCarta.setImageResource(R.drawable.icon_dinero);
             ivNivelCarta.setImageResource(R.drawable.icono_nivel);
             ivVidaCarta.setImageResource(R.drawable.icono_vida);
-            tvNombreCarta.setText(carta.getName());
+            tvNombreCarta.setText(carta.getNombreCarta());
             tvDineroCarta.setText(String.valueOf(carta.getValorCarta()));
             tvValorCarta.setText(String.valueOf(carta.getValorCarta()));
             tvNivelCarta.setText(String.valueOf(carta.getNivelCarta()));

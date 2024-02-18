@@ -12,7 +12,6 @@ import com.example.piximongame.R;
 import com.example.piximongame.entidades.Carta;
 import com.example.piximongame.entidades.Jugador;
 import com.example.piximongame.entidades.adaptadores.AdaptadorCarta;
-import com.example.piximongame.entidades.adaptadores.AdaptadorJugador;
 
 
 import java.util.List;
@@ -52,7 +51,7 @@ public class DetalleOponenteActivity extends AppCompatActivity {
 
     //al recycler le pasamos el jugador y dentro tendrá un list de cartas con sus cartas??
     private void cargarRecyclerCartasOponente(Jugador jugadorSeleccionado) {
-        List<Carta> cartasOponente = jugadorSeleccionado.getListaCartas();
+        List<Carta> cartasOponente = jugadorSeleccionado.getCartas();
         recViewCartasOponentes= findViewById(R.id.recViewCartasOponente);
         adaptadorCarta = new AdaptadorCarta(cartasOponente);
         recViewCartasOponentes.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));

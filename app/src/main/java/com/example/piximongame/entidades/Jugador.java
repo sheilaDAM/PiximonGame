@@ -8,11 +8,27 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 public class Jugador implements Parcelable {
+
+    private int id;
     private String nombreJugador;
     private String iconoJugador;
     private double dineroJugador;
-    private List<Carta> listaCartas;
+    private List<Carta> cartas;
 
+    public Jugador(int id, String nombreJugador, String iconoJugador, double dineroJugador, List<Carta> cartas) {
+        this.id = id;
+        this.nombreJugador = nombreJugador;
+        this.iconoJugador = iconoJugador;
+        this.dineroJugador = dineroJugador;
+        this.cartas = cartas;
+    }
+
+    public Jugador(String nombreJugador, String iconoJugador, double dineroJugador, List<Carta> cartas) {
+        this.nombreJugador = nombreJugador;
+        this.iconoJugador = iconoJugador;
+        this.dineroJugador = dineroJugador;
+        this.cartas = cartas;
+    }
     public Jugador(String nombreJugador, String iconoJugador, double dineroJugador) {
         this.nombreJugador = nombreJugador;
         this.iconoJugador = iconoJugador;
@@ -33,15 +49,17 @@ public class Jugador implements Parcelable {
         return dineroJugador;
     }
 
-    public List<Carta> getListaCartas() {
-        return listaCartas;
+    public List<Carta> getCartas() {
+        return cartas;
     }
 
     // ------- CÓDIGO AÑADIDO PARA IMPLEMENTAR LA INTERFAZ PARCELABLE -------
     protected Jugador(Parcel in) {
+        id = in.readInt();
         nombreJugador = in.readString();
         iconoJugador = in.readString();
         dineroJugador = in.readDouble();
+        cartas = in.createTypedArrayList(Carta.CREATOR);
     }
 
     @Override
@@ -63,8 +81,10 @@ public class Jugador implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(nombreJugador);
         dest.writeString(iconoJugador);
         dest.writeDouble(dineroJugador);
+        dest.writeTypedList(cartas);
     }
 }
