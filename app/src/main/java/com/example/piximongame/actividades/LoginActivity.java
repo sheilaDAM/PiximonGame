@@ -13,13 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.piximongame.R;
 import com.example.piximongame.api.IAPIService;
 import com.example.piximongame.api.RestClient;
-import com.example.piximongame.entidades.Jugador;
 import com.example.piximongame.entidades.Usuario;
 import com.example.piximongame.util.HashGenerator;
-import com.example.piximongame.util.ResponseStatus;
+import com.example.piximongame.entidades.ResponseStatus;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Comprobamos si nuestro usuario existe en la base de datos
-
                 nombreUsuario = etNombre.getText().toString();
                 password = etPassword.getText().toString();
                 //Creamos un usuario y lo guardamos en la base de datos a través de la api service
@@ -112,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                             ResponseStatus responseStatus = response.body();
                             ResponseStatus.TipoCodigo tipoCodigo = responseStatus.getTipoCodigo();
                             if (tipoCodigo.equals(ResponseStatus.TipoCodigo.LOGIN_CORRECTO)) {
+                                insertarDigimonsEnBBDD();
                                 // Credenciales válidas
                                 Toast.makeText(LoginActivity.this, "Usuario correcto.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, AvatarActivity.class);
@@ -136,6 +134,34 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+
+    }
+
+    private void insertarDigimonsEnBBDD() {
+        apiService.insertarDigimonsEnBBDD().enqueue(new Callback<ResponseStatus>() {
+            @Override
+            public void onResponse(Call<ResponseStatus> call, Response<ResponseStatus> response) {
+                if (response.isSuccessful()) {
+                    ResponseStatus responseStatus = response.body();
+                    ResponseStatus.TipoCodigo tipoCodigo = responseStatus.getTipoCodigo();
+                    if (tipoCodigo.equals(ResponseStatus.TipoCodigo.DIGIMONS_INSERTADOS)) {
+                        Log.d("DIGIMONS INSERTADOS", "Digimons insertados: " + response.body());
+                        Toast.makeText(LoginActivity.this, "Digimons insertados con éxito :).", Toast.LENGTH_SHORT).show();
+                    } else if (tipoCodigo.equals(ResponseStatus.TipoCodigo.DIGIMONS_YA_EXISTEN)) {
+                        // El usuario ya existe, maneja este caso
+                        Toast.makeText(LoginActivity.this, "Los digimons ya existen en la bbdd.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.e("DIGIMONS NO INSERTADOS", "Digimons no insertados");
+                        Toast.makeText(LoginActivity.this, "Error en la operación de inserción de digimons.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseStatus> call, Throwable t) {
+                Log.e("RETROFIT", "Error al insertar digimons: " + t.getMessage());
             }
         });
     }
@@ -165,3 +191,4 @@ public class LoginActivity extends AppCompatActivity {
      */
 
 }
+
