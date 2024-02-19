@@ -98,7 +98,8 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
             // Primero creamos el jugador principal (usuario que juega)
             Jugador jugador = new Jugador(usuarioLogeado.getNombre(), avatarSeleccionado.getImagenAvatar(), 150000);
             //Lo pasamos a la api para que lo guarde en la bbdd y cree el resto de datos que inicializan la partida
-            guardarJugadorUsuarioEnBBDD(jugador);
+             //guardarJugadorUsuarioEnBBDD(jugador);
+            guardarUsuarioJugadorYGenerarDatos(jugador);
             obtenerPartidaActual(usuarioLogeado.getNombre());
             obtenerJugadoresAleatoriosEnPartidaActual(idPartidaActual);
 
@@ -136,6 +137,27 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
 
                 }
 
+            });
+        }
+
+        private void guardarUsuarioJugadorYGenerarDatos(Jugador jugador) {
+            apiService = RestClient.getApiServiceInstance();
+            apiService.generarDatosIniciales(jugador).enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(retrofit2.Call<Boolean> call, Response<Boolean> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body()) {
+                        Log.d("JUGADOR GUARDADO", "Jugador registrado con éxito :)");
+                        Toast.makeText(context, "Jugador registrado con éxito :).", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.e("JUGADOR NO GUARDADO", "Error en la operación de registro.");
+                        Toast.makeText(context, "Error en la operación de registro.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<Boolean> call, Throwable t) {
+                    Log.e("RETROFIT", "Error al guardar jugador: " + t.getMessage());
+                }
             });
         }
 

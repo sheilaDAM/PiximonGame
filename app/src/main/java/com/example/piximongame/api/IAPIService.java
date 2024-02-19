@@ -32,6 +32,9 @@ public interface IAPIService {
     @POST("/usuarios/comprobarLogin")
     Call<ResponseStatus> comprobarLogin(@Body Usuario usuario);
 
+    @POST("/inicializador/generarDatos")
+    Call<Boolean> generarDatosIniciales(@Body Jugador jugador);
+
     //Guardamos nuestro usuario jugador y se crearán 4 bots jugadores aleatorios
     @POST("/jugadores/addJugadores")
     Call<ResponseStatus> guardarJugadores(@Body Jugador jugadores);
