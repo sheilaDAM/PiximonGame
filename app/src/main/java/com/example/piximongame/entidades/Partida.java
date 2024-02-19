@@ -29,6 +29,7 @@ public class Partida implements Parcelable {
         return jugadores;
     }
 
+
     // ------- CÓDIGO AÑADIDO PARA IMPLEMENTAR LA INTERFAZ PARCELABLE -------
     protected Partida(Parcel in) {
         id = in.readInt();

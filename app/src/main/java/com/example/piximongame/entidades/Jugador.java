@@ -57,6 +57,21 @@ public class Jugador implements Parcelable {
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public Partida getPartida() {
+        return partida;
+    }
+
+    public Combate getCombate() {
+        return combate;
+    }
 
     public String getNombreJugador() {
         return nombreJugador;

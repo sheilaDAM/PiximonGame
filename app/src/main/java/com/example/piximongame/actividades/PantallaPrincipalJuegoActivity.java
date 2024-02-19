@@ -1,6 +1,9 @@
 package com.example.piximongame.actividades;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +32,10 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal_juego);
 
+        Button btVerMisCartas = findViewById(R.id.btMisCartas);
+        Button btVerMiAlineacion = findViewById(R.id.btVerMiAlineacion);
+        Button btIniciarCombate = findViewById(R.id.btIniciarCombate);
+
         nombreJugador1 = getIntent().getStringExtra("nombreJugador");
         imagenAvatar1 = getIntent().getStringExtra("imagenAvatar");
         usuarioLogeado = getIntent().getParcelableExtra("usuarioLogeado");
@@ -37,6 +44,17 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
         // Actualizamos la interfaz de usuario con los datos recibidos
         actualizarInterfaz(usuarioLogeado);
         cargarRecyclerContrincantes(jugadoresAleatorios);
+
+
+        btVerMisCartas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lanzamos la actividad que muestra las cartas del usuario jugador
+                Intent intent = new Intent(PantallaPrincipalJuegoActivity.this, MisCartasActivity.class);
+                intent.putExtra("nombreUsuarioJugador", nombreJugador1);
+                startActivity(intent);
+            }
+        });
     }
 
     private void actualizarInterfaz(Usuario usuarioLogeado) {
@@ -59,5 +77,9 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
         adaptadorJugador = new AdaptadorJugador(jugadoresAleatorios);
         recViewContrincantes.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
         recViewContrincantes.setAdapter(adaptadorJugador);
+    }
+
+    private void obtenerUsuarioJugador(String nombreJugador) {
+
     }
 }

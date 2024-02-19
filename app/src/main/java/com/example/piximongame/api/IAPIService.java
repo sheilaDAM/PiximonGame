@@ -39,7 +39,7 @@ public interface IAPIService {
 
     //Para obtener todos los jugadores de una partida concreta (nos devolverá los 5 jugadores)
     @GET("/jugadores/obtenerJugadoresPorPartidaId(int idPartida)")
-    Call<List<Jugador>> obtenerJugadoresPorPartidaId(int idPartida);
+    Call<List<Jugador>> obtenerJugadoresPorPartidaId(@Query("idPartida") int idPartida);
 
     //Para obtener todos los jugadores bots de una partida concreta
     @GET("jugadores/obtenerJugadoresAleatoriosEnPartida")
@@ -53,5 +53,7 @@ public interface IAPIService {
     @GET("/partida/obtenerPartidaActual")
       Call<Partida> obtenerPartidaActual(@Query("nombre") String nombreUsuarioJugador);
 
+    @GET("/jugadores/obtenerJugadorUsuarioEnPartida")
+    Call<Jugador> obtenerJugadorUsuarioEnPartida(@Query("idPartida") int idPartida);
 
 }

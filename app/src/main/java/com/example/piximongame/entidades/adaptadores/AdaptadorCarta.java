@@ -1,5 +1,6 @@
 package com.example.piximongame.entidades.adaptadores;
 
+import com.squareup.picasso.Picasso;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,10 +80,11 @@ public class AdaptadorCarta extends RecyclerView.Adapter<AdaptadorCarta.ListView
         }
 
         public void bindCategory(Carta carta) {
-            int resourceId = context.getResources().getIdentifier(carta.getImgCarta(), "drawable", context.getPackageName());
-            ivCarta.setImageResource(resourceId);
+            // Cargamos la imagen del digimon en la carta desde la URL usando Picasso
+            Picasso.get().load(carta.getImgCarta()).into(ivCarta);
             ivCarta.getLayoutParams().width = 400;
             ivCarta.getLayoutParams().height = 400;
+
             ivNombreCarta.setImageResource(R.drawable.icono_huella);
             ivValorCarta.setImageResource(R.drawable.icon_dinero);
             ivNivelCarta.setImageResource(R.drawable.icono_nivel);

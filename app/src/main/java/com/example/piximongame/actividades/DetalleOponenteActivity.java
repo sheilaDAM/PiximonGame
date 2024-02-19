@@ -1,6 +1,8 @@
 package com.example.piximongame.actividades;
 
 import android.os.Bundle;
+import android.telecom.Call;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piximongame.R;
+import com.example.piximongame.api.IAPIService;
+import com.example.piximongame.api.RestClient;
 import com.example.piximongame.entidades.Carta;
 import com.example.piximongame.entidades.Jugador;
 import com.example.piximongame.entidades.adaptadores.AdaptadorCarta;
@@ -16,12 +20,19 @@ import com.example.piximongame.entidades.adaptadores.AdaptadorCarta;
 
 import java.util.List;
 
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
+
 public class DetalleOponenteActivity extends AppCompatActivity {
 
-    private List<Carta> cartasOponente;
+    private List<Carta> cartasJugadorSeleccionado;
     private Jugador jugadorSeleccionado;
     private RecyclerView recViewCartasOponentes;
     private AdaptadorCarta adaptadorCarta;
+    private IAPIService apiService;
+    private int idJugadorSeleccionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +40,11 @@ public class DetalleOponenteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalle_oponente);
 
         jugadorSeleccionado = getIntent().getParcelableExtra("jugadorSeleccionado");
+        idJugadorSeleccionado = jugadorSeleccionado.getId();
 
         actualizarInterfaz(jugadorSeleccionado);
+        obtenerCartasJugador(idJugadorSeleccionado);
+        cargarRecyclerCartasOponente(jugadorSeleccionado);
 
     }
 
@@ -51,10 +65,29 @@ public class DetalleOponenteActivity extends AppCompatActivity {
 
     //al recycler le pasamos el jugador y dentro tendrá un list de cartas con sus cartas??
     private void cargarRecyclerCartasOponente(Jugador jugadorSeleccionado) {
-        List<Carta> cartasOponente = jugadorSeleccionado.getCartas();
+        int idJugadorSeleccionado = jugadorSeleccionado.getId();
+        obtenerCartasJugador(idJugadorSeleccionado);
         recViewCartasOponentes= findViewById(R.id.recViewCartasOponente);
-        adaptadorCarta = new AdaptadorCarta(cartasOponente);
+        adaptadorCarta = new AdaptadorCarta(cartasJugadorSeleccionado);
         recViewCartasOponentes.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
         recViewCartasOponentes.setAdapter(adaptadorCarta);
+    }
+
+    private void obtenerCartasJugador(int idJugadorSeleccionado) {
+
+        apiService = RestClient.getApiServiceInstance();
+        apiService.obtenerCartasJugador(idJugadorSeleccionado).enqueue(new Callback<List<Carta>>() {
+            @Override
+            public void onResponse(retrofit2.Call<List<Carta>> call, Response<List<Carta>> response) {
+                if (response.isSuccessful()) {
+                    cartasJugadorSeleccionado = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<List<Carta>> call, Throwable t) {
+                Log.e("ERROR", t.getMessage());
+            }
+        });
     }
 }

@@ -83,7 +83,6 @@ public class AdaptadorJugador extends RecyclerView.Adapter<AdaptadorJugador.List
         @Override
         public void onClick(View v) {
             jugadorSeleccionado = listaJugadores.get(getAdapterPosition());
-
             Intent intent = new Intent(context, DetalleOponenteActivity.class);
             intent.putExtra("jugadorSeleccionado", jugadorSeleccionado);
             context.startActivity(intent);
