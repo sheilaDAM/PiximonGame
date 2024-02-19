@@ -10,10 +10,12 @@
         android:id="@+id/ivImagenJugador1"
         android:layout_width="110dp"
         android:layout_height="113dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="5dp"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/btMisCartas"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/personaje1" />
 
@@ -77,14 +79,27 @@
         android:id="@+id/btMisCartas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="236dp"
         android:backgroundTint="#419EE8"
         android:text="Mis cartas"
         android:textStyle="bold"
         app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDineroJugador1" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="228dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#419EE8"
+        android:text="Ver mi \n alineación"
+        android:textStyle="bold"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btJugarRonda"
@@ -92,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
         android:backgroundTint="#EAD83D"
-        android:text="Iniciar \n Combate"
+        android:text="Iniciar \n combate"
         android:textColor="#201313"
         android:textStyle="bold"
         app:cornerRadius="10dp"
