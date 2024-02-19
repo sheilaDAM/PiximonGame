@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 //y el get
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 import com.example.piximongame.entidades.Jugador;
 import com.example.piximongame.entidades.Partida;
@@ -41,8 +42,11 @@ public interface IAPIService {
     @GET("/jugadores/obtenerJugadoresPorPartidaId(int idPartida)")
     Call<List<Jugador>> obtenerJugadoresPorPartidaId(int idPartida);
 
+    @GET("jugadores/obtenerJugadoresAleatoriosEnPartida")
+    Call<List<Jugador>> obtenerJugadoresAleatoriosEnPartida(@Query("idPartida") int idPartida);
+
     @GET("/partida/obtenerPartidaActual")
-      Call<Partida> obtenerPartidaActual(String nombreUsuarioJugador);
+      Call<Partida> obtenerPartidaActual(@Query("nombre") String nombreUsuarioJugador);
 
 
 }

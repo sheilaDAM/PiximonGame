@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import retrofit2.Callback;
 
 import retrofit2.Response;
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
 
 
 public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListViewHolder> {
@@ -97,8 +97,10 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
 
             // Primero creamos el jugador principal (usuario que juega)
             Jugador jugador = new Jugador(usuarioLogeado.getNombre(), avatarSeleccionado.getImagenAvatar(), 150000);
+            //Lo pasamos a la api para que lo guarde en la bbdd y cree el resto de datos que inicializan la partida
             guardarJugadorUsuarioEnBBDD(jugador);
-            obtenerJugadoresEnPartidaActual();
+            obtenerPartidaActual(usuarioLogeado.getNombre());
+            obtenerJugadoresAleatoriosEnPartidaActual(idPartidaActual);
 
             Intent intent = new Intent(context, PantallaPrincipalJuegoActivity.class);
             intent.putExtra("usuarioLogeado", usuarioLogeado);
@@ -137,10 +139,10 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
             });
         }
 
-        private void obtenerJugadoresEnPartidaActual() {
+        private void obtenerJugadoresAleatoriosEnPartidaActual(int idPartidaActual) {
 
             apiService = RestClient.getApiServiceInstance();
-            apiService.obtenerJugadoresPorPartidaId(idPartidaActual).enqueue(new Callback<List<Jugador>>() {
+            apiService.obtenerJugadoresAleatoriosEnPartida(idPartidaActual).enqueue(new Callback<List<Jugador>>() {
                 @Override
                 public void onResponse(retrofit2.Call<List<Jugador>> call, Response<List<Jugador>> response) {
                     if (response.isSuccessful()) {
@@ -159,14 +161,13 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
 
         private void obtenerPartidaActual(String nombreUsuarioJugador) {
             apiService = RestClient.getApiServiceInstance();
-            apiService.obtenerPartidaActual(usuarioLogeado.getNombre()).enqueue(new Callback<Partida>() {
+            apiService.obtenerPartidaActual(nombreUsuarioJugador).enqueue(new Callback<Partida>() {
                 @Override
                 public void onResponse(retrofit2.Call<Partida> call, Response<Partida> response) {
                     if (response.isSuccessful()) {
                         Partida partida = response.body();
-                        int idPartida = partida.getId();
-                        Log.d("ID PARTIDA", "ID Partida: " + idPartida);
-                        idPartidaActual(idPartida);
+                        idPartidaActual = partida.getId();
+                        Log.d("ID PARTIDA", "ID Partida: " + idPartidaActual);
                     }
                 }
 

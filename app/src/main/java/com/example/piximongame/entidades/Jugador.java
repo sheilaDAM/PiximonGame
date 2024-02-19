@@ -13,6 +13,9 @@ public class Jugador implements Parcelable {
     private String nombreJugador;
     private String iconoJugador;
     private double dineroJugador;
+    private Usuario usuario;
+    private Partida partida;
+    private Combate combate;
     private List<Carta> cartas;
 
     public Jugador(int id, String nombreJugador, String iconoJugador, double dineroJugador, List<Carta> cartas) {
@@ -33,6 +36,24 @@ public class Jugador implements Parcelable {
         this.nombreJugador = nombreJugador;
         this.iconoJugador = iconoJugador;
         this.dineroJugador = dineroJugador;
+    }
+
+    public Jugador(int id, String nombreJugador, String iconoJugador, double dineroJugador) {
+        this.id = id;
+        this.nombreJugador = nombreJugador;
+        this.iconoJugador = iconoJugador;
+        this.dineroJugador = dineroJugador;
+    }
+
+    public Jugador(int id, String nombreJugador, String iconoJugador, double dineroJugador, Usuario usuario, Partida partida, Combate combate, List<Carta> cartas) {
+        this.id = id;
+        this.nombreJugador = nombreJugador;
+        this.iconoJugador = iconoJugador;
+        this.dineroJugador = dineroJugador;
+        this.usuario = usuario;
+        this.partida = partida;
+        this.combate = combate;
+        this.cartas = cartas;
     }
 
 
