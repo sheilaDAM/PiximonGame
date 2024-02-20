@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 //y el get
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import com.example.piximongame.entidades.Carta;
@@ -39,24 +40,29 @@ public interface IAPIService {
     @POST("/jugadores/addJugadores")
     Call<ResponseStatus> guardarJugadores(@Body Jugador jugadores);
 
+    @POST("/inicializador/generarDatos")
+    Call<ResponseStatus> guardarUsuarioJugadorYGenerarDatos(@Body Jugador jugador);
 
     //Para obtener todos los jugadores de una partida concreta (nos devolverá los 5 jugadores)
-    @GET("/jugadores/obtenerJugadoresPorPartidaId(int idPartida)")
-    Call<List<Jugador>> obtenerJugadoresPorPartidaId(@Query("idPartida") int idPartida);
+    @GET("/jugadores/obtenerJugadoresPorPartidaId/{idPartida}")
+    Call<List<Jugador>> obtenerJugadoresPorPartidaId(@Path("idPartida") int idPartida);
 
     //Para obtener todos los jugadores bots de una partida concreta
-    @GET("jugadores/obtenerJugadoresAleatoriosEnPartida")
-    Call<List<Jugador>> obtenerJugadoresAleatoriosEnPartida(@Query("idPartida") int idPartida);
+    @GET("jugadores/obtenerJugadoresAleatoriosEnPartida/{idPartida}")
+    Call<List<Jugador>> obtenerJugadoresAleatoriosEnPartida(@Path("idPartida") int idPartida);
 
     //Para obtener las cartas de un jugador concreto
-    @GET("/cartas/obtenerCartasJugador")
-    Call<List<Carta>> obtenerCartasJugador(@Query("idJugador") int idJugador);
+    @GET("/cartas/obtenerCartasJugador/{idJugador}")
+    Call<List<Carta>> obtenerCartasJugador(@Path("idJugador") int idJugador);
 
     //Para obtener la partida actual donde pertenecen los 5 jugadores del juego actual
-    @GET("/partida/obtenerPartidaActual")
-      Call<Partida> obtenerPartidaActual(@Query("nombre") String nombreUsuarioJugador);
+    @GET("/partida/obtenerPartidaActual/{nombreUsuarioJugador}")
+    Call<Partida> obtenerPartidaActual(@Path("nombreUsuarioJugador") String nombreUsuarioJugador);
 
-    @GET("/jugadores/obtenerJugadorUsuarioEnPartida")
-    Call<Jugador> obtenerJugadorUsuarioEnPartida(@Query("idPartida") int idPartida);
+    @GET("/jugadores/obtenerJugadorUsuarioEnPartida/{idPartida}")
+    Call<Jugador> obtenerJugadorUsuarioEnPartida(@Path("idPartida") int idPartida);
+
+    @GET("/cartas/obtenerCartasSinAsignar")
+    Call<List<Carta>> obtenerCartasSinAsignar();
 
 }

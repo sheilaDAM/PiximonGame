@@ -20,8 +20,6 @@ import java.util.List;
 public class AdaptadorCarta extends RecyclerView.Adapter<AdaptadorCarta.ListViewHolder> {
 
     private final List<Carta> listaCartas;
-    private Jugador jugadorSeleccionado;
-    private Carta cartaSeleccionada;
 
     public AdaptadorCarta(List<Carta> listaCartas) {
         this.listaCartas= listaCartas;
@@ -99,7 +97,7 @@ public class AdaptadorCarta extends RecyclerView.Adapter<AdaptadorCarta.ListView
 
         @Override
         public void onClick(View v) {
-            cartaSeleccionada = listaCartas.get(getAdapterPosition());
+
 
         }
     }

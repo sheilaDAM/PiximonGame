@@ -100,29 +100,22 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
             //Lo pasamos a la api para que lo guarde en la bbdd y cree el resto de datos que inicializan la partida
              //guardarJugadorUsuarioEnBBDD(jugador);
             guardarUsuarioJugadorYGenerarDatos(jugador);
-            obtenerPartidaActual(usuarioLogeado.getNombre());
-            obtenerJugadoresAleatoriosEnPartidaActual(idPartidaActual);
 
-            Intent intent = new Intent(context, PantallaPrincipalJuegoActivity.class);
-            intent.putExtra("usuarioLogeado", usuarioLogeado);
-            intent.putExtra("imagenAvatar", avatarSeleccionado.getImagenAvatar());
-            //ahora vamos a pasar el listado de jugadores
-            intent.putParcelableArrayListExtra("jugadoresAleatorios", (ArrayList<? extends Parcelable>) listaJugadoresEnPartida);
-            context.startActivity(intent);
         }
 
         //Método para guardar nuestro jugador en la BBDD y generar todos los datos
         //(4 bots aleatorios, 150 cartas, asignar 20, se eligen 9 para la alineación y se crea alineación)
 
-        private void guardarJugadorUsuarioEnBBDD(Jugador jugador) {
+        private void guardarUsuarioJugadorYGenerarDatos(Jugador jugador) {
             apiService = RestClient.getApiServiceInstance();
-            apiService.guardarJugadores(jugador).enqueue(new Callback<ResponseStatus>() {
+            apiService.guardarUsuarioJugadorYGenerarDatos(jugador).enqueue(new Callback<ResponseStatus>() {
                 @Override
                 public void onResponse(retrofit2.Call<ResponseStatus> call, Response<ResponseStatus> response) {
                     if (response.isSuccessful()) {
                         ResponseStatus responseStatus = response.body();
                         ResponseStatus.TipoCodigo tipoCodigo = responseStatus.getTipoCodigo();
                         if (tipoCodigo.equals(ResponseStatus.TipoCodigo.INSERT_OK)) {
+                            obtenerPartidaActual(usuarioLogeado.getNombre());
                             Log.d("JUGADOR GUARDADO", "Jugador guardado: " + response.body());
                             Toast.makeText(context, "Jugador registrado con éxito :).", Toast.LENGTH_SHORT).show();
                         } else {
@@ -140,27 +133,6 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
             });
         }
 
-        private void guardarUsuarioJugadorYGenerarDatos(Jugador jugador) {
-            apiService = RestClient.getApiServiceInstance();
-            apiService.generarDatosIniciales(jugador).enqueue(new Callback<Boolean>() {
-                @Override
-                public void onResponse(retrofit2.Call<Boolean> call, Response<Boolean> response) {
-                    if (response.isSuccessful() && response.body() != null && response.body()) {
-                        Log.d("JUGADOR GUARDADO", "Jugador registrado con éxito :)");
-                        Toast.makeText(context, "Jugador registrado con éxito :).", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Log.e("JUGADOR NO GUARDADO", "Error en la operación de registro.");
-                        Toast.makeText(context, "Error en la operación de registro.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(retrofit2.Call<Boolean> call, Throwable t) {
-                    Log.e("RETROFIT", "Error al guardar jugador: " + t.getMessage());
-                }
-            });
-        }
-
         private void obtenerJugadoresAleatoriosEnPartidaActual(int idPartidaActual) {
 
             apiService = RestClient.getApiServiceInstance();
@@ -169,6 +141,13 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
                 public void onResponse(retrofit2.Call<List<Jugador>> call, Response<List<Jugador>> response) {
                     if (response.isSuccessful()) {
                         listaJugadoresEnPartida = response.body();
+                        Intent intent = new Intent(context, PantallaPrincipalJuegoActivity.class);
+                        intent.putExtra("usuarioLogeado", usuarioLogeado);
+                        intent.putExtra("imagenAvatar", avatarSeleccionado.getImagenAvatar());
+                        intent.putExtra("jugadoresAleatorios", (ArrayList<? extends Parcelable>) listaJugadoresEnPartida);
+                        //ahora vamos a pasar el listado de jugadores
+                        intent.putParcelableArrayListExtra("jugadoresAleatorios", (ArrayList<? extends Parcelable>) listaJugadoresEnPartida);
+                        context.startActivity(intent);
                         Log.d("JUGADORES OBTENIDOS", "Jugadores obtenidos: " + listaJugadoresEnPartida.size());
                     }
                 }
@@ -189,6 +168,7 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
                     if (response.isSuccessful()) {
                         Partida partida = response.body();
                         idPartidaActual = partida.getId();
+                        obtenerJugadoresAleatoriosEnPartidaActual(idPartidaActual);
                         Log.d("ID PARTIDA", "ID Partida: " + idPartidaActual);
                     }
                 }
@@ -199,11 +179,6 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
 
                 }
             });
-        }
-
-        private int idPartidaActual(int id) {
-            idPartidaActual = id;
-            return idPartidaActual;
         }
     }
 }
