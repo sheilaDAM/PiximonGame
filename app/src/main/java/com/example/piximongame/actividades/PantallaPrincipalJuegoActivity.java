@@ -22,6 +22,7 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
 
     private String nombreJugador1;
     private String imagenAvatar1;
+    private int partidaActual;
     private List<Jugador> jugadoresAleatorios;
     private RecyclerView recViewContrincantes;
     private AdaptadorJugador adaptadorJugador;
@@ -36,15 +37,16 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
         Button btVerMiAlineacion = findViewById(R.id.btVerMiAlineacion);
         Button btIniciarCombate = findViewById(R.id.btIniciarCombate);
 
-        nombreJugador1 = getIntent().getStringExtra("nombreJugador");
+        nombreJugador1 = getIntent().getStringExtra("usuarioLogeado");
         imagenAvatar1 = getIntent().getStringExtra("imagenAvatar");
         usuarioLogeado = getIntent().getParcelableExtra("usuarioLogeado");
+        partidaActual = getIntent().getIntExtra("idPartida",0);
+
         jugadoresAleatorios = getIntent().getParcelableArrayListExtra("jugadoresAleatorios");
 
         // Actualizamos la interfaz de usuario con los datos recibidos
         actualizarInterfaz(usuarioLogeado);
         cargarRecyclerContrincantes(jugadoresAleatorios);
-
 
         btVerMisCartas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +54,18 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
                 // Lanzamos la actividad que muestra las cartas del usuario jugador
                 Intent intent = new Intent(PantallaPrincipalJuegoActivity.this, MisCartasActivity.class);
                 intent.putExtra("nombreUsuarioJugador", nombreJugador1);
+                intent.putExtra("idPartida", partidaActual);
                 startActivity(intent);
+            }
+        });
+
+        btVerMiAlineacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lanzamos la actividad que muestra la alineación del usuario juegador
+                Intent intent = new Intent(PantallaPrincipalJuegoActivity.this, MostrarAlineacionActivity.class);
+                startActivity(intent);
+
             }
         });
     }
@@ -80,6 +93,7 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
     }
 
     private void obtenerUsuarioJugador(String nombreJugador) {
+
 
     }
 }

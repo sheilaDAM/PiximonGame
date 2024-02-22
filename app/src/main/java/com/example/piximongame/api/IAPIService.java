@@ -2,13 +2,12 @@ package com.example.piximongame.api;
 
 
 import retrofit2.Call;
-//vamos a importar par usar el post de la api
+//vamos a importar para usar el post de la api
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 //y el get
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 import com.example.piximongame.entidades.Carta;
 import com.example.piximongame.entidades.Jugador;
@@ -55,9 +54,14 @@ public interface IAPIService {
     @GET("/cartas/obtenerCartasJugador/{idJugador}")
     Call<List<Carta>> obtenerCartasJugador(@Path("idJugador") int idJugador);
 
+    //Para obtener las cartas alineadas de un jugador concreto
+    @GET("cartas/obtenerCartasAlineadasDeUnJugador/{idJugador}")
+    Call<List<Carta>> obtenerCartasAlineadasDeJugador(@Path("idJugador") int idJugador);
+
+
     //Para obtener la partida actual donde pertenecen los 5 jugadores del juego actual
-    @GET("/partida/obtenerPartidaActual/{nombreUsuarioJugador}")
-    Call<Partida> obtenerPartidaActual(@Path("nombreUsuarioJugador") String nombreUsuarioJugador);
+    @GET("/partida/obtenerPartidaActual")
+    Call<Partida> obtenerPartidaActual();
 
     @GET("/jugadores/obtenerJugadorUsuarioEnPartida/{idPartida}")
     Call<Jugador> obtenerJugadorUsuarioEnPartida(@Path("idPartida") int idPartida);

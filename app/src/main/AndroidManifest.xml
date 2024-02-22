@@ -28,6 +28,7 @@
         <activity android:name=".actividades.PantallaPrincipalJuegoActivity"/>
         <activity android:name=".actividades.DetalleOponenteActivity"/>
         <activity android:name=".actividades.MisCartasActivity"/>
+        <activity android:name=".actividades.MostrarAlineacionActivity"/>
         <activity android:name=".actividades.LoginActivity"/>
 
     </application>

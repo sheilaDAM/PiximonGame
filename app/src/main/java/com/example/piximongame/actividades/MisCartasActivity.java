@@ -40,15 +40,18 @@ public class MisCartasActivity extends AppCompatActivity {
         nombreUsuarioJugador = getIntent().getStringExtra("nombreUsuarioJugador");
         TextView titulo = findViewById(R.id.tvMisCartas);
 
-        obtenerPartidaActual(nombreUsuarioJugador);
-        obtenerJugadorUsuarioEnPartida(idPartidaActual);
-        idUsuarioJugador = usuarioJugador.getId();
-        cargarRecyclerConMisCartas(usuarioJugador);
+        idPartidaActual = getIntent().getIntExtra("idPartida",0);
+        Log.d("ID PARTIDA", "ID Partida: " + idPartidaActual);
+
+        obtenerPartidaActual();
+        //obtenerJugadorUsuarioEnPartida(idPartidaActual);
+        //idUsuarioJugador = usuarioJugador.getId();
+        //cargarRecyclerConMisCartas(usuarioJugador);
 
     }
 
-    private void cargarRecyclerConMisCartas(Jugador usuarioJugador) {
-        obtenerCartas(idUsuarioJugador);
+    private void cargarRecyclerConMisCartas(List<Carta> cartasUsuarioJugador){
+        //obtenerCartas(idUsuarioJugador);
         recViewMisCartas = findViewById(R.id.recViewMisCartas);
         adaptadorCarta = new AdaptadorCarta(cartasUsuarioJugador);
         recViewMisCartas.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
@@ -63,6 +66,8 @@ public class MisCartasActivity extends AppCompatActivity {
             public void onResponse(retrofit2.Call<List<Carta>> call, Response<List<Carta>> response) {
                 if (response.isSuccessful()) {
                     cartasUsuarioJugador = response.body();
+                    cargarRecyclerConMisCartas(cartasUsuarioJugador);
+
                 }
             }
 
@@ -80,6 +85,9 @@ public class MisCartasActivity extends AppCompatActivity {
             public void onResponse(retrofit2.Call<Jugador> call, Response<Jugador> response) {
                 if (response.isSuccessful()) {
                     usuarioJugador = response.body();
+                    idUsuarioJugador = usuarioJugador.getId();
+                    obtenerCartas(idUsuarioJugador);
+                    Log.d("JUGADOR USUARIO: ", usuarioJugador.getNombreJugador());
                 }
             }
 
@@ -90,15 +98,16 @@ public class MisCartasActivity extends AppCompatActivity {
         });
     }
 
-    private void obtenerPartidaActual(String nombreUsuarioJugador) {
+    private void obtenerPartidaActual() {
         apiService = RestClient.getApiServiceInstance();
-        apiService.obtenerPartidaActual(nombreUsuarioJugador).enqueue(new Callback<Partida>() {
+        apiService.obtenerPartidaActual().enqueue(new Callback<Partida>() {
             @Override
             public void onResponse(retrofit2.Call<Partida> call, Response<Partida> response) {
                 if (response.isSuccessful()) {
                     Partida partida = response.body();
                     idPartidaActual = partida.getId();
                     Log.d("ID PARTIDA", "ID Partida: " + idPartidaActual);
+                    obtenerJugadorUsuarioEnPartida(idPartidaActual);
                 }
             }
 

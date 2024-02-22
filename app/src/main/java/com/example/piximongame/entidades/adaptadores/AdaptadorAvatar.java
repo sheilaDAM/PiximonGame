@@ -115,7 +115,7 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
                         ResponseStatus responseStatus = response.body();
                         ResponseStatus.TipoCodigo tipoCodigo = responseStatus.getTipoCodigo();
                         if (tipoCodigo.equals(ResponseStatus.TipoCodigo.INSERT_OK)) {
-                            obtenerPartidaActual(usuarioLogeado.getNombre());
+                            obtenerPartidaActual();
                             Log.d("JUGADOR GUARDADO", "Jugador guardado: " + response.body());
                             Toast.makeText(context, "Jugador registrado con éxito :).", Toast.LENGTH_SHORT).show();
                         } else {
@@ -136,6 +136,7 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
         private void obtenerJugadoresAleatoriosEnPartidaActual(int idPartidaActual) {
 
             apiService = RestClient.getApiServiceInstance();
+
             apiService.obtenerJugadoresAleatoriosEnPartida(idPartidaActual).enqueue(new Callback<List<Jugador>>() {
                 @Override
                 public void onResponse(retrofit2.Call<List<Jugador>> call, Response<List<Jugador>> response) {
@@ -145,6 +146,7 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
                         intent.putExtra("usuarioLogeado", usuarioLogeado);
                         intent.putExtra("imagenAvatar", avatarSeleccionado.getImagenAvatar());
                         intent.putExtra("jugadoresAleatorios", (ArrayList<? extends Parcelable>) listaJugadoresEnPartida);
+                        intent.putExtra("idPartidaActual", idPartidaActual);
                         //ahora vamos a pasar el listado de jugadores
                         intent.putParcelableArrayListExtra("jugadoresAleatorios", (ArrayList<? extends Parcelable>) listaJugadoresEnPartida);
                         context.startActivity(intent);
@@ -160,14 +162,15 @@ public class AdaptadorAvatar extends RecyclerView.Adapter<AdaptadorAvatar.ListVi
 
         }
 
-        private void obtenerPartidaActual(String nombreUsuarioJugador) {
+        private void obtenerPartidaActual() {
             apiService = RestClient.getApiServiceInstance();
-            apiService.obtenerPartidaActual(nombreUsuarioJugador).enqueue(new Callback<Partida>() {
+            apiService.obtenerPartidaActual().enqueue(new Callback<Partida>() {
                 @Override
                 public void onResponse(retrofit2.Call<Partida> call, Response<Partida> response) {
                     if (response.isSuccessful()) {
                         Partida partida = response.body();
                         idPartidaActual = partida.getId();
+                        Log.d("ID PARTIDA", "ID Partida: " + idPartidaActual);
                         obtenerJugadoresAleatoriosEnPartidaActual(idPartidaActual);
                         Log.d("ID PARTIDA", "ID Partida: " + idPartidaActual);
                     }
