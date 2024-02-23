@@ -72,14 +72,13 @@ public class AdaptadorCartasAlineacion extends RecyclerView.Adapter<AdaptadorCar
             tvNivelCarta = itemview.findViewById(R.id.tvNivelCarta);
             tvVidaCarta = itemview.findViewById(R.id.tvVidaCarta);
 
-
         }
 
         public void bindCategory(Carta carta) {
             // Cargamos la imagen del digimon en la carta desde la URL usando Picasso
             Picasso.get().load(carta.getImgCarta()).into(ivCarta);
-            ivCarta.getLayoutParams().width = 400;
-            ivCarta.getLayoutParams().height = 400;
+            ivCarta.getLayoutParams().width = 200;
+            ivCarta.getLayoutParams().height = 200;
 
             ivNombreCarta.setImageResource(R.drawable.icono_huella);
             ivValorCarta.setImageResource(R.drawable.icon_dinero);

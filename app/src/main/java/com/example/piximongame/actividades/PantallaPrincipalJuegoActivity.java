@@ -73,14 +73,14 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
     private void actualizarInterfaz(Usuario usuarioLogeado) {
         ImageView ivImagenJugador1 = findViewById(R.id.ivImagenJugador1);
         TextView tvNombreJugador1 = findViewById(R.id.tvNombreJugador1);
-        TextView tvDineroJugador1 = findViewById(R.id.tvDineroJugador1);
+        TextView tvDineroJugador1 = findViewById(R.id.tvDineroOponente);
         ImageView ivNombreJugador1 = findViewById(R.id.ivNombreJugador1);
         ImageView ivDineroJugador1 = findViewById(R.id.ivDineroJugador1);
 
         int resourceId = getResources().getIdentifier(imagenAvatar1, "drawable", getPackageName());
         ivImagenJugador1.setImageResource(resourceId);
         tvNombreJugador1.setText(usuarioLogeado.getNombre());
-        tvDineroJugador1.setText(String.valueOf(1000));
+        tvDineroJugador1.setText(String.valueOf(150000));
         ivNombreJugador1.setImageResource(R.drawable.icon_nombre_jugador);
         ivDineroJugador1.setImageResource(R.drawable.icon_dinero);
     }

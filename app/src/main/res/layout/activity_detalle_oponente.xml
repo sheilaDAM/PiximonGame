@@ -48,12 +48,12 @@
         app:layout_constraintTop_toBottomOf="@+id/ivImagenOponente" />
 
     <TextView
-        android:id="@+id/tvDineroJugador1"
+        android:id="@+id/tvDineroOponente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:hint="1000"
+        android:hint="150000"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/ivDineroOponente"
         app:layout_constraintTop_toBottomOf="@+id/ivNombreOponente" />
@@ -82,7 +82,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDineroJugador1" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDineroOponente" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

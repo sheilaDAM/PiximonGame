@@ -21,10 +21,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvZonaUno"
         android:layout_width="380dp"
-        android:layout_height="165dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
+        android:paddingLeft="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAlineacion" />
@@ -32,10 +33,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvZonaDos"
         android:layout_width="380dp"
-        android:layout_height="165dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
+        android:paddingLeft="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvZonaUno" />
@@ -43,10 +45,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvZonaTres"
         android:layout_width="380dp"
-        android:layout_height="165dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvZonaDos" />
