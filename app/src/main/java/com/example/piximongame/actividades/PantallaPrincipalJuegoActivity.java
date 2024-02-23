@@ -16,6 +16,7 @@ import com.example.piximongame.entidades.Jugador;
 import com.example.piximongame.entidades.Usuario;
 import com.example.piximongame.entidades.adaptadores.AdaptadorJugador;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
     private String imagenAvatar1;
     private int partidaActual;
     private List<Jugador> jugadoresAleatorios;
-    private RecyclerView recViewContrincantes;
+    private RecyclerView recViewOponentes;
     private AdaptadorJugador adaptadorJugador;
     private Usuario usuarioLogeado;
 
@@ -46,7 +47,7 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
 
         // Actualizamos la interfaz de usuario con los datos recibidos
         actualizarInterfaz(usuarioLogeado);
-        cargarRecyclerContrincantes(jugadoresAleatorios);
+        cargarRecyclerOponentes(jugadoresAleatorios);
 
         btVerMisCartas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +69,17 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
 
             }
         });
+
+        btIniciarCombate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PantallaPrincipalJuegoActivity.this, ActivityCombate.class);
+                intent.putExtra("idPartida", partidaActual);
+                intent.putParcelableArrayListExtra("jugadoresAleatorios", (ArrayList<Jugador>) jugadoresAleatorios);
+                intent.putExtra("usuarioJugador", usuarioLogeado);
+                startActivity(intent);
+            }
+        });
     }
 
     private void actualizarInterfaz(Usuario usuarioLogeado) {
@@ -85,11 +97,11 @@ public class PantallaPrincipalJuegoActivity extends AppCompatActivity {
         ivDineroJugador1.setImageResource(R.drawable.icon_dinero);
     }
 
-    private void cargarRecyclerContrincantes(List<Jugador> jugadoresAleatorios) {
-        recViewContrincantes = findViewById(R.id.recViewContrincantes);
+    private void cargarRecyclerOponentes(List<Jugador> jugadoresAleatorios) {
+        recViewOponentes = findViewById(R.id.recViewContrincantes);
         adaptadorJugador = new AdaptadorJugador(jugadoresAleatorios);
-        recViewContrincantes.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
-        recViewContrincantes.setAdapter(adaptadorJugador);
+        recViewOponentes.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+        recViewOponentes.setAdapter(adaptadorJugador);
     }
 
     private void obtenerUsuarioJugador(String nombreJugador) {

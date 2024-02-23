@@ -40,6 +40,9 @@ public class MostrarAlineacionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mostrar_alineacion);
 
         TextView titulo = findViewById(R.id.tvAlineacion);
+        TextView tvZona1 = findViewById(R.id.tvZonaUno);
+        TextView tvZona2 = findViewById(R.id.tvZonaDos);
+        TextView tvZona3 = findViewById(R.id.tvZonaTres);
 
         obtenerPartidaActual();
 
